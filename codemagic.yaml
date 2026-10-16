@@ -1,0 +1,29 @@
+workflows:
+  compilar-ipa:
+    name: Compilar StelarIOS IPA
+    instance_type: mac_mini_m2
+    max_build_duration: 30
+    scripts:
+      - name: Compilar StelarIOSApp sin firma
+        script: |
+          xcodebuild clean build \
+            -project StelarIOSApp.xcodeproj \
+            -scheme StelarIOSApp \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -configuration Release \
+            -derivedDataPath build \
+            CODE_SIGN_STYLE=Manual \
+            DEVELOPMENT_TEAM="" \
+            PROVISIONING_PROFILE_SPECIFIER="" \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+      - name: Crear archivo .ipa
+        script: |
+          mkdir -p Payload
+          APP_PATH=$(find build -name "*.app" -type d | head -n 1)
+          cp -r "$APP_PATH" Payload/
+          zip -r StelarIOS.ipa Payload
+    artifacts:
+      - StelarIOS.ipa
