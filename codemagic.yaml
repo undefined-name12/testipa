@@ -1,29 +1,61 @@
 workflows:
-  compilar-ipa:
-    name: Compilar StelarIOS IPA
+  stelar-ios-release:
+    name: Stelar iOS signed IPA
+    max_build_duration: 60
     instance_type: mac_mini_m2
-    max_build_duration: 30
+    environment:
+      xcode: "27.1"
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.stelar.ios
+      vars:
+        XCODE_PROJECT: StelarIOSApp.xcodeproj
+        XCODE_SCHEME: StelarIOSApp
     scripts:
-      - name: Compilar StelarIOSApp sin firma
+      - name: Apply App Store signing assets
+        script: xcode-project use-profiles --project "$CM_BUILD_DIR/$XCODE_PROJECT"
+      - name: Build and export signed IPA
+        script: >-
+          xcode-project build-ipa
+          --project "$CM_BUILD_DIR/$XCODE_PROJECT"
+          --scheme "$XCODE_SCHEME"
+      - name: Verify exported IPA signature
         script: |
-          xcodebuild clean build \
-            -project StelarIOSApp.xcodeproj \
-            -scheme StelarIOSApp \
-            -sdk iphoneos \
-            -destination 'generic/platform=iOS' \
-            -configuration Release \
-            -derivedDataPath build \
-            CODE_SIGN_STYLE=Manual \
-            DEVELOPMENT_TEAM="" \
-            PROVISIONING_PROFILE_SPECIFIER="" \
-            CODE_SIGN_IDENTITY="" \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO
-      - name: Crear archivo .ipa
-        script: |
-          mkdir -p Payload
-          APP_PATH=$(find build -name "*.app" -type d | head -n 1)
-          cp -r "$APP_PATH" Payload/
-          zip -r StelarIOS.ipa Payload
+          set -euo pipefail
+
+          IPA_DIR="$CM_BUILD_DIR/build/ios/ipa"
+          IPA="$(find "$IPA_DIR" -maxdepth 1 -type f -name '*.ipa' -print -quit)"
+          if [ -z "$IPA" ]; then
+            echo "ERROR: No se encontró una IPA exportada en $IPA_DIR" >&2
+            exit 1
+          fi
+
+          VERIFY_DIR="$(mktemp -d "$CM_BUILD_DIR/build/verify.XXXXXX")"
+          ditto -x -k "$IPA" "$VERIFY_DIR"
+          APP="$(find "$VERIFY_DIR/Payload" -maxdepth 1 -type d -name '*.app' -print -quit)"
+          if [ -z "$APP" ]; then
+            echo "ERROR: La IPA no contiene Payload/*.app" >&2
+            exit 1
+          fi
+
+          codesign --verify --deep --strict --verbose=2 "$APP"
+          SIGNATURE_INFO="$(codesign -dv --verbose=4 "$APP" 2>&1)"
+          printf '%s\n' "$SIGNATURE_INFO"
+          if ! printf '%s\n' "$SIGNATURE_INFO" | grep -q '^Authority=Apple Distribution:'; then
+            echo "ERROR: La app no está firmada con un certificado Apple Distribution" >&2
+            exit 1
+          fi
+
+          BUNDLE_ID="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP/Info.plist")"
+          if [ "$BUNDLE_ID" != "com.stelar.ios" ]; then
+            echo "ERROR: Bundle ID inesperado: $BUNDLE_ID" >&2
+            exit 1
+          fi
+          MIN_IOS="$(/usr/libexec/PlistBuddy -c 'Print :MinimumOSVersion' "$APP/Info.plist")"
+          if [ "$MIN_IOS" != "15.0" ]; then
+            echo "ERROR: Se esperaba iOS 15.0 como mínimo, se encontró $MIN_IOS" >&2
+            exit 1
+          fi
+          echo "Firma y compatibilidad base verificadas: $BUNDLE_ID, iOS $MIN_IOS"
     artifacts:
-      - StelarIOS.ipa
+      - build/ios/ipa/*.ipa
