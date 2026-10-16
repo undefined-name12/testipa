@@ -1,4 +1,4 @@
-name: Compilar StelarIOS IPA
+name: Compilar y Firmar StelarIOS IPA (iOS 15+)
 
 on:
   workflow_dispatch:
@@ -11,18 +11,14 @@ jobs:
       - name: Descargar el repositorio
         uses: actions/checkout@v4
 
-      - name: Buscar el proyecto y compilar sin firma
+      - name: Compilar para iOS 15+ y aplicar firma criptográfica base
         run: |
-          # Busca dónde está StelarIOSApp.xcodeproj por si quedó dentro de una subcarpeta
+          # 1. Localizar el proyecto automáticamente
           PROJECT_PATH=$(find . -maxdepth 3 -name "StelarIOSApp.xcodeproj" | head -n 1)
           PROJECT_DIR=$(dirname "$PROJECT_PATH")
-          echo "Compilando en el directorio: $PROJECT_DIR"
           cd "$PROJECT_DIR"
 
-          # Da permisos al script original por si el proyecto lo necesita
-          chmod +x build_ipa.sh || true
-
-          # Compila ignorando cualquier certificado o equipo de Apple
+          # 2. Compilar forzando soporte desde iOS 15.0 hasta el iOS más reciente (arm64)
           xcodebuild clean build \
             -project StelarIOSApp.xcodeproj \
             -scheme StelarIOSApp \
@@ -30,6 +26,9 @@ jobs:
             -destination 'generic/platform=iOS' \
             -configuration Release \
             -derivedDataPath build \
+            ARCHS="arm64" \
+            ONLY_ACTIVE_ARCH=NO \
+            IPHONEOS_DEPLOYMENT_TARGET=15.0 \
             CODE_SIGN_STYLE=Manual \
             DEVELOPMENT_TEAM="" \
             PROVISIONING_PROFILE_SPECIFIER="" \
@@ -37,14 +36,29 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
 
-          # Empaqueta el resultado en .ipa
+          # 3. Preparar la carpeta Payload y el paquete .app
+          rm -rf Payload
           mkdir -p Payload
           APP_PATH=$(find build -name "*.app" -type d | head -n 1)
           cp -r "$APP_PATH" Payload/
-          zip -r "$GITHUB_WORKSPACE/StelarIOS.ipa" Payload
+          APP_BUNDLE=$(find Payload -name "*.app" -type d | head -n 1)
 
-      - name: Subir el archivo .ipa listo
+          # 4. Asegurar que Info.plist permita instalar desde iOS 15.0+ y dar permisos al binario
+          plutil -replace MinimumOSVersion -string "15.0" "$APP_BUNDLE/Info.plist"
+          BINARY_NAME=$(/usr/libexec/PlistBuddy -c "Print :CFBundleExecutable" "$APP_BUNDLE/Info.plist")
+          chmod +x "$APP_BUNDLE/$BINARY_NAME"
+
+          # 5. Firmar criptográficamente el .app (Ad-Hoc Sign) para que sea válido
+          codesign --force --deep --sign - --timestamp=none "$APP_BUNDLE"
+
+          # 6. Verificar que la firma se aplicó correctamente
+          codesign -vv -d "$APP_BUNDLE"
+
+          # 7. Empaquetar el .ipa final
+          zip -r -9 "$GITHUB_WORKSPACE/StelarIOS.ipa" Payload
+
+      - name: Subir StelarIOS.ipa firmado y listo
         uses: actions/upload-artifact@v4
         with:
-          name: StelarIOS-IPA
+          name: StelarIOS-IPA-iOS15+
           path: StelarIOS.ipa
