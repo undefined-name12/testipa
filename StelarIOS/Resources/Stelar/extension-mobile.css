@@ -1,0 +1,39 @@
+@media screen and (max-width: 700px) {
+    .vc-plugins-settings { box-sizing: border-box; width: 100%; max-width: 100%; min-width: 0; gap: 14px; }
+    .vc-plugins-grid { box-sizing: border-box; grid-template-columns: minmax(0, 1fr) !important; gap: 12px; width: 100%; }
+    .vc-plugins-grid > * { box-sizing: border-box; min-width: 0; max-width: 100%; }
+    .vc-addon-title-container { height: auto; min-height: 1.25em; overflow: visible; }
+    .vc-addon-title, .vc-addon-title:hover { position: static; inset: auto; min-width: 0; max-width: 100%; overflow: visible; overflow-wrap: anywhere; text-overflow: clip; white-space: normal; animation: none; transform: none; }
+    .vc-addon-title > div { box-sizing: border-box; display: flex; flex-wrap: wrap; min-width: 0; max-width: 100%; }
+    .vc-addon-title > div > span:first-child { display: block; min-width: 0; max-width: 100%; overflow: visible; overflow-wrap: anywhere; text-overflow: clip; white-space: normal; }
+    .vc-plugins-grid :is(h1, h2, h3, h4) { min-width: 0; max-width: 100%; overflow-wrap: anywhere; white-space: normal !important; text-overflow: clip !important; }
+    .vc-plugins-stats-container { box-sizing: border-box; padding: 12px; margin-bottom: 12px; gap: 10px; }
+    .vc-plugins-stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .vc-plugins-category-pill-bar { gap: 6px; }
+    .vc-plugins-category-pill { min-height: 40px; max-width: 100%; box-sizing: border-box; white-space: normal; text-align: center; }
+    .vc-plugins-filter-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; width: 100%; }
+    .vc-plugins-filter-control { box-sizing: border-box; min-width: 0; width: 100%; max-width: 100%; }
+    .vc-plugins-filter-controls button { box-sizing: border-box; min-width: 0; max-width: 100%; min-height: 40px; height: auto; white-space: normal; overflow-wrap: anywhere; line-height: 1.25; }
+    .vc-plugins-sort-row, .vc-plugins-tools-container, .vc-plugins-tools-btns { max-width: 100%; flex-wrap: wrap; }
+    .vc-plugins-card-actions { flex-shrink: 0; gap: 6px; }
+    .vc-plugins-info-card { box-sizing: border-box; min-width: 0; padding: 12px; }
+    .vc-plugins-results-bar { min-width: 0; flex-wrap: wrap; gap: 8px; }
+    .vc-plugins-results-count { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+    .vc-plugin-modal-info { flex-wrap: wrap; gap: 12px; }
+    .vc-plugins-setting-inline { flex-wrap: wrap; gap: 8px; }
+    .vc-plugins-settings input, .vc-plugins-settings select { box-sizing: border-box; min-width: 0; max-width: 100%; }
+    .stelar-mobile-quickcss-backdrop { position: fixed; inset: 0; z-index: 2147483000; box-sizing: border-box; display: flex; align-items: center; justify-content: center; padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom)); background: rgba(0, 0, 0, .72); }
+    .stelar-mobile-quickcss-dialog { box-sizing: border-box; width: 100%; max-width: 720px; height: min(78dvh, 720px); min-height: 300px; display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--border-subtle, rgba(255, 255, 255, .12)); border-radius: 16px; background: var(--background-primary, #313338); color: var(--header-primary, #f2f3f5); box-shadow: 0 12px 48px rgba(0, 0, 0, .45); }
+    .stelar-mobile-quickcss-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px; border-bottom: 1px solid var(--border-subtle, rgba(255, 255, 255, .12)); font-size: 18px; font-weight: 700; }
+    .stelar-mobile-quickcss-input { box-sizing: border-box; flex: 1 1 auto; width: 100%; min-height: 0; margin: 0; padding: 14px; border: 0; outline: 0; resize: none; background: var(--background-base-lowest, #1e1f22); color: var(--text-default, #dbdee1); font: 13px/1.5 monospace; tab-size: 4; white-space: pre; overflow: auto; }
+    .stelar-mobile-quickcss-actions { display: flex; justify-content: flex-end; gap: 10px; padding: 12px 16px; border-top: 1px solid var(--border-subtle, rgba(255, 255, 255, .12)); }
+    .stelar-mobile-quickcss-actions button { box-sizing: border-box; min-width: 104px; min-height: 44px; padding: 10px 16px; border: 0; border-radius: 8px; color: #fff; font-size: 15px; font-weight: 600; }
+    .stelar-mobile-quickcss-cancel { background: var(--background-modifier-accent, #4e5058); }
+    .stelar-mobile-quickcss-save { background: var(--brand-experiment, #5865f2); }
+    .stelar-mobile-quickcss-actions button:disabled { opacity: .55; }
+    [class*="profileContentInner"] { box-sizing: border-box; min-width: 0; min-height: 0; overflow-x: hidden !important; overflow-y: auto !important; align-items: stretch !important; }
+    [class*="profileContentColumns"] { box-sizing: border-box; width: 100% !important; max-width: 100%; min-width: 0; height: auto !important; min-height: 0; overflow: visible !important; flex-direction: column !important; align-items: stretch !important; gap: 12px; }
+    [class*="profileContentColumns"] > main, [class*="profileContentColumns"] > [class*="container_"] { box-sizing: border-box; width: 100% !important; max-width: 100%; min-width: 0; height: auto !important; flex: 0 0 auto !important; }
+    [aria-label="Friends"] [class*="children__9293f"] { box-sizing: border-box; max-width: 100%; min-width: 0; flex-wrap: wrap !important; }
+    [aria-label="Friends"] [class*="tabBar__133bf"] { box-sizing: border-box; max-width: 100%; min-width: 0; }
+}

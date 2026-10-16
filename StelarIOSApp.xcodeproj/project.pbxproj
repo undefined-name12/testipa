@@ -1,0 +1,270 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+		000000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					000000000000000000000004 = { CreatedOnToolsVersion = 26.0; };
+				};
+			};
+			buildConfigurationList = 00000000000000000000001A;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (en, Base);
+			mainGroup = 000000000000000000000002;
+			productRefGroup = 000000000000000000000003;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (000000000000000000000004);
+		};
+		000000000000000000000002 /* Main group */ = {
+			isa = PBXGroup;
+			children = (000000000000000000000018, 000000000000000000000003);
+			sourceTree = "<group>";
+		};
+		000000000000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (000000000000000000000005);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		000000000000000000000004 /* StelarIOS target */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00000000000000000000001B;
+			buildPhases = (
+				000000000000000000000006,
+				000000000000000000000007,
+				000000000000000000000008,
+			);
+			buildRules = ();
+			dependencies = ();
+			name = StelarIOSApp;
+			productName = Stelar;
+			productReference = 000000000000000000000005;
+			productType = "com.apple.product-type.application";
+		};
+		000000000000000000000005 /* StelarIOSApp.app */ = {
+			isa = PBXFileReference;
+			explicitFileType = wrapper.application;
+			includeInIndex = 0;
+			path = StelarIOSApp.app;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		000000000000000000000006 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				000000000000000000000011,
+				000000000000000000000012,
+				000000000000000000000013,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		000000000000000000000007 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		000000000000000000000008 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				000000000000000000000014,
+				000000000000000000000015,
+				000000000000000000000016,
+				000000000000000000000017,
+				000000000000000000000020,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		000000000000000000000009 /* StelarIOSApp.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = StelarIOSApp.swift;
+			sourceTree = "<group>";
+		};
+		00000000000000000000000A /* DiscordWebView.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = DiscordWebView.swift;
+			sourceTree = "<group>";
+		};
+		00000000000000000000000B /* StelarBootstrap.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = StelarBootstrap.swift;
+			sourceTree = "<group>";
+		};
+		00000000000000000000000C /* Info.plist */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.xml;
+			path = Info.plist;
+			sourceTree = "<group>";
+		};
+		00000000000000000000000D /* extension.js */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.javascript;
+			path = extension.js;
+			sourceTree = "<group>";
+		};
+		00000000000000000000000E /* extension.css */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.css;
+			path = extension.css;
+			sourceTree = "<group>";
+		};
+		00000000000000000000000F /* extension-mobile.css */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.css;
+			path = extension-mobile.css;
+			sourceTree = "<group>";
+		};
+		000000000000000000000010 /* extension.js.LEGAL.txt */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = text;
+			path = extension.js.LEGAL.txt;
+			sourceTree = "<group>";
+		};
+		000000000000000000000021 /* Assets.xcassets */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = folder.assetcatalog;
+			path = Assets.xcassets;
+			sourceTree = "<group>";
+		};
+		000000000000000000000011 /* StelarIOSApp.swift in Sources */ = {
+			isa = PBXBuildFile;
+			fileRef = 000000000000000000000009;
+		};
+		000000000000000000000012 /* DiscordWebView.swift in Sources */ = {
+			isa = PBXBuildFile;
+			fileRef = 00000000000000000000000A;
+		};
+		000000000000000000000013 /* StelarBootstrap.swift in Sources */ = {
+			isa = PBXBuildFile;
+			fileRef = 00000000000000000000000B;
+		};
+		000000000000000000000014 /* extension.js in Resources */ = {
+			isa = PBXBuildFile;
+			fileRef = 00000000000000000000000D;
+		};
+		000000000000000000000015 /* extension.css in Resources */ = {
+			isa = PBXBuildFile;
+			fileRef = 00000000000000000000000E;
+		};
+		000000000000000000000016 /* extension-mobile.css in Resources */ = {
+			isa = PBXBuildFile;
+			fileRef = 00000000000000000000000F;
+		};
+		000000000000000000000017 /* extension.js.LEGAL.txt in Resources */ = {
+			isa = PBXBuildFile;
+			fileRef = 000000000000000000000010;
+		};
+		000000000000000000000020 /* Assets.xcassets in Resources */ = {
+			isa = PBXBuildFile;
+			fileRef = 000000000000000000000021;
+		};
+		000000000000000000000018 /* StelarIOS group */ = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000009,
+				00000000000000000000000A,
+				00000000000000000000000B,
+				00000000000000000000000C,
+				000000000000000000000019,
+				000000000000000000000021,
+			);
+			path = StelarIOS;
+			sourceTree = "<group>";
+		};
+		000000000000000000000019 /* Stelar resources */ = {
+			isa = PBXGroup;
+			children = (
+				00000000000000000000000D,
+				00000000000000000000000E,
+				00000000000000000000000F,
+				000000000000000000000010,
+			);
+			path = Resources/Stelar;
+			sourceTree = "<group>";
+		};
+		00000000000000000000001A /* Project configuration list */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (00000000000000000000001C, 00000000000000000000001D);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		00000000000000000000001B /* Target configuration list */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (00000000000000000000001E, 00000000000000000000001F);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		00000000000000000000001C /* Project Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		00000000000000000000001D /* Project Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		00000000000000000000001E /* Target Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = StelarIOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stelar.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		00000000000000000000001F /* Target Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = StelarIOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stelar.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+	};
+	rootObject = 000000000000000000000001;
+}
