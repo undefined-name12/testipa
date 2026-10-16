@@ -1,0 +1,50 @@
+name: Compilar StelarIOS IPA
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Buscar el proyecto y compilar sin firma
+        run: |
+          # Busca dónde está StelarIOSApp.xcodeproj por si quedó dentro de una subcarpeta
+          PROJECT_PATH=$(find . -maxdepth 3 -name "StelarIOSApp.xcodeproj" | head -n 1)
+          PROJECT_DIR=$(dirname "$PROJECT_PATH")
+          echo "Compilando en el directorio: $PROJECT_DIR"
+          cd "$PROJECT_DIR"
+
+          # Da permisos al script original por si el proyecto lo necesita
+          chmod +x build_ipa.sh || true
+
+          # Compila ignorando cualquier certificado o equipo de Apple
+          xcodebuild clean build \
+            -project StelarIOSApp.xcodeproj \
+            -scheme StelarIOSApp \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -configuration Release \
+            -derivedDataPath build \
+            CODE_SIGN_STYLE=Manual \
+            DEVELOPMENT_TEAM="" \
+            PROVISIONING_PROFILE_SPECIFIER="" \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+          # Empaqueta el resultado en .ipa
+          mkdir -p Payload
+          APP_PATH=$(find build -name "*.app" -type d | head -n 1)
+          cp -r "$APP_PATH" Payload/
+          zip -r "$GITHUB_WORKSPACE/StelarIOS.ipa" Payload
+
+      - name: Subir el archivo .ipa listo
+        uses: actions/upload-artifact@v4
+        with:
+          name: StelarIOS-IPA
+          path: StelarIOS.ipa
